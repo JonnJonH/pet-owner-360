@@ -1,0 +1,103 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: 'Mars Centra';
+  src: url('./assets/fonts/MARSCENTRA-BOOK.TTF') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Mars Centra';
+  src: url('./assets/fonts/MARS CENTRA BOOK ITALIC.TTF') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Mars Centra';
+  src: url('./assets/fonts/MARSCENTRA-BOLD.TTF') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Mars Centra';
+  src: url('./assets/fonts/MARS CENTRA BOLD ITALIC.TTF') format('truetype');
+  font-weight: 700;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Mars Centra';
+  src: url('./assets/fonts/MARSCENTRA-EXTRABOLD.TTF') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Mars Centra';
+  src: url('./assets/fonts/MARS CENTRA EXTRABOLD ITALIC.TTF') format('truetype');
+  font-weight: 800;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Zooja';
+  src: url('./assets/fonts/ZOOJA 3.OTF') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@theme {
+  --font-sans: 'Mars Centra', ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-display: 'Zooja', system-ui, sans-serif;
+
+  /* Primary Palette */
+  --color-mars-red: #ff1414;
+  --color-mars-blue: #0000a0;
+  --color-mars-cream: #fff9ef;
+  --color-mars-gray: #3c3c3c;
+
+  /* Secondary Palette */
+  --color-pet-yellow: #ffdc00;
+  --color-pet-orange: #ff7832;
+  --color-pet-purple: #d00070;
+  --color-pet-green: #00af66;
+  --color-pet-blue: #307FE2;
+}
+
+@layer utilities {
+  .focus-ring {
+    @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-mars-blue focus-visible:ring-offset-2;
+  }
+
+  .hover-smooth {
+    @apply transition-all duration-200 ease-in-out;
+  }
+
+  .btn-touch-target {
+    @apply min-h-[44px] min-w-[44px] flex items-center justify-center;
+  }
+}
+
+:root {
+  font-family: var(--font-sans), system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
