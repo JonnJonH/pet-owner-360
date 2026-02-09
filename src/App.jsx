@@ -98,7 +98,7 @@ function MainApp() {
               <div className="mb-8 text-center">
                 <h1 className="text-3xl font-extrabold text-gray-900 mb-2">AI Diagnostic Hub</h1>
                 <p className="text-gray-500 max-w-xl mx-auto">
-                  Professional-grade screening tools powered by Whistle™ Health AI.
+                  Professional-grade screening tools powered by Activity Tracker™ Health AI.
                   Results are instantly analyzed and shared with your vet.
                 </p>
               </div>

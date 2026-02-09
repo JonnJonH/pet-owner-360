@@ -23,7 +23,7 @@ const PetOwner360 = () => {
                         <div>
                             <span className="text-2xl font-bold">{isAquatic ? '0.4 km' : currentPet.biometrics.dailySteps}</span>
                             <p className="text-xs text-indigo-100">
-                                {isAquatic ? 'Swim Distance' : 'Daily Steps'} (Whistle™)
+                                {isAquatic ? 'Swim Distance' : 'Daily Steps'} (Activity Tracker™)
                             </p>
                         </div>
                         <div className="text-right">

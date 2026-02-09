@@ -43,7 +43,7 @@ const PRODUCTS = [
     },
     {
         id: 'p5',
-        name: 'Whistle™ Health Device',
+        name: 'Activity Tracker™ Health Device',
         category: 'Tech',
         price: 149.00,
         image: '/products/whistle.jpg',

@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { calculateWellnessScore } from '../../data/store';
 import { usePet } from '../../context/PetContext';
-import { Droplets, Thermometer, Sun, Activity, Footprints, Moon, CheckCircle, Loader } from 'lucide-react';
+import { Droplets, Thermometer, Sun, Activity, Footprints, Moon } from 'lucide-react';
 import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
 
 const WellnessDashboard = () => {
     const { currentPet } = usePet();
     const [period, setPeriod] = useState('Week');
-    const [bookingStatus, setBookingStatus] = useState('idle'); // idle, loading, success
+
 
     // Simulate score variation based on period
     const baseScore = calculateWellnessScore(currentPet);
@@ -25,14 +25,7 @@ const WellnessDashboard = () => {
 
     const COLORS = ['#10B981', '#E5E7EB'];
 
-    const handleBooking = () => {
-        setBookingStatus('loading');
-        setTimeout(() => {
-            setBookingStatus('success');
-            // Reset after 3 seconds
-            setTimeout(() => setBookingStatus('idle'), 3000);
-        }, 1500);
-    };
+
 
     return (
         <div className="card-clay p-6">
@@ -93,8 +86,8 @@ const WellnessDashboard = () => {
                         <div className="flex items-center justify-end">
                             <span className="text-xs font-bold text-gray-600 mr-2">Weight Trend</span>
                             <span className={`inline-block px-2 py-1 text-xs font-bold rounded-lg border ${currentPet.profile.weight > currentPet.profile.targetWeight
-                                    ? 'bg-yellow-50 text-yellow-700 border-yellow-100'
-                                    : 'bg-green-50 text-green-700 border-green-100'
+                                ? 'bg-yellow-50 text-yellow-700 border-yellow-100'
+                                : 'bg-green-50 text-green-700 border-green-100'
                                 }`}>
                                 {currentPet.profile.weight > currentPet.profile.targetWeight ? '+' : ''}
                                 {(currentPet.profile.weight - currentPet.profile.targetWeight).toFixed(1)}kg
@@ -112,7 +105,7 @@ const WellnessDashboard = () => {
 
             <div className="border-t border-gray-100 pt-4">
                 <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">
-                    {currentPet.biometrics.environment === 'Aquatic' ? 'Environment (API® Connect)' : 'Activity (Whistle®)'}
+                    {currentPet.biometrics.environment === 'Aquatic' ? 'Environment (API® Connect)' : 'Activity (Activity Tracker)'}
                 </p>
                 <div className="grid grid-cols-3 gap-2">
                     {currentPet.biometrics.environment === 'Aquatic' ? (
@@ -150,28 +143,7 @@ const WellnessDashboard = () => {
                 </div>
             </div>
 
-            <button
-                onClick={handleBooking}
-                disabled={bookingStatus !== 'idle'}
-                className={`w-full mt-4 py-2.5 rounded-xl font-bold transition-all duration-300 flex items-center justify-center
-                    ${bookingStatus === 'success' ? 'bg-green-600 text-white' : 'btn-mars-primary'}
-                    ${bookingStatus === 'loading' ? 'opacity-80 cursor-wait' : ''}
-                `}
-            >
-                {bookingStatus === 'idle' && "Book Antech RapidRead™"}
-                {bookingStatus === 'loading' && (
-                    <>
-                        <Loader className="w-4 h-4 mr-2 animate-spin" />
-                        Processing Request...
-                    </>
-                )}
-                {bookingStatus === 'success' && (
-                    <>
-                        <CheckCircle className="w-4 h-4 mr-2" />
-                        Appointment Confirmed
-                    </>
-                )}
-            </button>
+
         </div>
     );
 };
