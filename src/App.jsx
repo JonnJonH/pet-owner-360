@@ -61,6 +61,7 @@ function DashboardContent({ setActiveTab }) {
 function MainApp() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [activeTab, setActiveTab] = useState('dashboard');
+  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const { currentPet, switchPet } = usePet();
 
   if (!isAuthenticated) {
@@ -80,7 +81,13 @@ function MainApp() {
   };
 
   return (
-    <AppLayout activeTab={activeTab} setActiveTab={setActiveTab} className="bg-mars-cream">
+    <AppLayout
+      activeTab={activeTab}
+      setActiveTab={setActiveTab}
+      className="bg-mars-cream"
+      isBookingModalOpen={isBookingModalOpen}
+      setIsBookingModalOpen={setIsBookingModalOpen}
+    >
       <AnimatePresence mode="wait">
         <motion.div
           key={activeTab}
@@ -115,7 +122,7 @@ function MainApp() {
           )}
 
           {activeTab === 'health' && (
-            <HealthRecords />
+            <HealthRecords onBookAppointment={() => setIsBookingModalOpen(true)} />
           )}
 
           {activeTab === 'store' && (

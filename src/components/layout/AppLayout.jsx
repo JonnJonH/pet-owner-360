@@ -3,7 +3,7 @@ import Sidebar from './Sidebar';
 import { Menu } from 'lucide-react';
 import { usePet } from '../../context/PetContext';
 
-const AppLayout = ({ children, activeTab, setActiveTab }) => {
+const AppLayout = ({ children, activeTab, setActiveTab, isBookingModalOpen, setIsBookingModalOpen }) => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const { currentPet } = usePet();
 
@@ -15,6 +15,8 @@ const AppLayout = ({ children, activeTab, setActiveTab }) => {
                 setActiveTab={setActiveTab}
                 isMobileMenuOpen={isMobileMenuOpen}
                 setIsMobileMenuOpen={setIsMobileMenuOpen}
+                isBookingModalOpen={isBookingModalOpen}
+                setIsBookingModalOpen={setIsBookingModalOpen}
             />
 
             {/* Main Content Area */}

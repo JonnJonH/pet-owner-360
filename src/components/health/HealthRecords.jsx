@@ -4,9 +4,9 @@ import GenomicsReport from './GenomicsReport';
 import { FileText, Download, Calendar, CheckCircle, Loader, ChevronRight } from 'lucide-react';
 import { usePet } from '../../context/PetContext';
 
-const HealthRecords = () => {
+const HealthRecords = ({ onBookAppointment }) => {
     const { addMedicalHistory } = usePet();
-    const [bookingStatus, setBookingStatus] = useState('idle'); // idle, loading, success
+    // Removed local bookingStatus state
 
     // Link Account State
     const [isLinkModalOpen, setIsLinkModalOpen] = useState(false);
@@ -14,13 +14,7 @@ const HealthRecords = () => {
     const [selectedProvider, setSelectedProvider] = useState('');
     const [linkLoading, setLinkLoading] = useState(false);
 
-    const handleBooking = () => {
-        setBookingStatus('loading');
-        setTimeout(() => {
-            setBookingStatus('success');
-            setTimeout(() => setBookingStatus('idle'), 3000);
-        }, 1500);
-    };
+
 
     const handleLinkAccount = () => {
         setLinkLoading(true);
@@ -134,30 +128,11 @@ const HealthRecords = () => {
                         Link Account
                     </button>
                     <button
-                        onClick={handleBooking}
-                        disabled={bookingStatus !== 'idle'}
-                        className={`flex items-center px-6 py-2.5 rounded-xl font-bold transition-all duration-300 shadow-md hover:shadow-lg focus:ring-4 focus:ring-mars-blue/20
-                            ${bookingStatus === 'success' ? 'bg-green-600 text-white' : 'bg-mars-blue text-white hover:bg-blue-800'}
-                        `}
+                        onClick={onBookAppointment}
+                        className="flex items-center px-6 py-2.5 rounded-xl font-bold bg-mars-blue text-white hover:bg-blue-800 transition-all duration-300 shadow-md hover:shadow-lg focus:ring-4 focus:ring-mars-blue/20"
                     >
-                        {bookingStatus === 'idle' && (
-                            <>
-                                <Calendar className="w-4 h-4 mr-2" />
-                                Book Vet Appointment
-                            </>
-                        )}
-                        {bookingStatus === 'loading' && (
-                            <>
-                                <Loader className="w-4 h-4 mr-2 animate-spin" />
-                                Checking Availability...
-                            </>
-                        )}
-                        {bookingStatus === 'success' && (
-                            <>
-                                <CheckCircle className="w-4 h-4 mr-2" />
-                                Request Sent
-                            </>
-                        )}
+                        <Calendar className="w-4 h-4 mr-2" />
+                        Book Vet Appointment
                     </button>
                 </div>
             </div>
