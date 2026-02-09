@@ -11,6 +11,7 @@ import IndividualisEngine from './components/nutrition/IndividualisEngine';
 import PetOwner360 from './components/engagement/PetOwner360';
 import DentalCheck from './components/diagnostics/DentalCheck';
 import SymptomTriage from './components/diagnostics/SymptomTriage';
+import AIHealthPredictor from './components/diagnostics/AIHealthPredictor';
 import HealthRecords from './components/health/HealthRecords';
 import { StoreProvider } from './context/StoreContext';
 import StorePage from './components/store/StorePage';
@@ -79,7 +80,7 @@ function MainApp() {
   };
 
   return (
-    <AppLayout activeTab={activeTab} setActiveTab={setActiveTab}>
+    <AppLayout activeTab={activeTab} setActiveTab={setActiveTab} className="bg-mars-cream">
       <AnimatePresence mode="wait">
         <motion.div
           key={activeTab}
@@ -93,15 +94,19 @@ function MainApp() {
           {activeTab === 'dashboard' && <DashboardContent setActiveTab={setActiveTab} />}
 
           {activeTab === 'diagnostics' && (
-            <div className="max-w-4xl mx-auto">
+            <div className="max-w-5xl mx-auto space-y-8">
               <div className="mb-8 text-center">
-                <h1 className="text-3xl font-extrabold text-gray-900 mb-2">AI diagnostic hub</h1>
+                <h1 className="text-3xl font-extrabold text-gray-900 mb-2">AI Diagnostic Hub</h1>
                 <p className="text-gray-500 max-w-xl mx-auto">
                   Professional-grade screening tools powered by Whistle™ Health AI.
                   Results are instantly analyzed and shared with your vet.
                 </p>
               </div>
 
+              {/* Top: AI Health Predictor */}
+              <AIHealthPredictor />
+
+              {/* Bottom: Specific Tools */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 h-full">
                 <DentalCheck />
                 <SymptomTriage />

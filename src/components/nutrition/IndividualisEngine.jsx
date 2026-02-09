@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { usePet } from '../../context/PetContext';
-import { Scale, ChevronRight, Package } from 'lucide-react';
+import { Scale, ChevronRight, Package, Check, Loader } from 'lucide-react';
 
 const IndividualisEngine = () => {
     const { currentPet } = usePet();
     const { weight, targetWeight, species } = currentPet.profile;
     const isOverweight = weight > targetWeight;
+    const [subscribeStatus, setSubscribeStatus] = useState('idle');
 
     // determine diet plan based on species (basic logic for demo)
     const currentDiet = species.includes('Turtle') || species.includes('Cooter') ? "Pellets + Greens" : "Kibble + Wet Food";
@@ -13,14 +14,21 @@ const IndividualisEngine = () => {
         ? "Royal Canin® Reptile Herbivore (High Fiber)"
         : "Royal Canin® Weight Care (Small Dog)";
 
+    const handleSubscribe = () => {
+        setSubscribeStatus('loading');
+        setTimeout(() => {
+            setSubscribeStatus('success');
+        }, 1500);
+    };
+
     return (
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 h-full flex flex-col">
+        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex flex-col">
             <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
                 <Scale className="w-5 h-5 mr-2 text-mars-blue" />
                 Individualis™ Nutrition
             </h2>
 
-            <div className="flex-1">
+            <div>
                 <div className="flex justify-between text-sm mb-2">
                     <span className="text-gray-500">Current Weight</span>
                     <span className="font-bold text-gray-900">{weight} kg</span>
@@ -63,10 +71,22 @@ const IndividualisEngine = () => {
                     </div>
 
                     <button
-                        onClick={() => console.log(`Order placed for ${recommendedDiet}`)}
-                        className="w-full bg-mars-red text-white font-extrabold py-2 rounded-lg text-sm hover:bg-red-700 hover-smooth focus-ring flex items-center justify-center min-h-[44px]"
+                        onClick={handleSubscribe}
+                        disabled={subscribeStatus !== 'idle'}
+                        className={`w-full font-extrabold py-2 rounded-lg text-sm transition-all duration-300 flex items-center justify-center min-h-[44px]
+                            ${subscribeStatus === 'success' ? 'bg-green-600 text-white' : 'bg-mars-red text-white hover:bg-red-700 hover-smooth focus-ring'}
+                            ${subscribeStatus === 'loading' ? 'opacity-80 cursor-wait' : ''}
+                        `}
                     >
-                        Subscribe & Save (15%) <ChevronRight size={16} className="ml-1" />
+                        {subscribeStatus === 'idle' && (
+                            <>Subscribe & Save (15%) <ChevronRight size={16} className="ml-1" /></>
+                        )}
+                        {subscribeStatus === 'loading' && (
+                            <Loader className="w-4 h-4 animate-spin" />
+                        )}
+                        {subscribeStatus === 'success' && (
+                            <>Subscribed <Check size={16} className="ml-1" /></>
+                        )}
                     </button>
                 </div>
             </div>

@@ -9,18 +9,34 @@ export const PetProvider = ({ children }) => {
         return localStorage.getItem('currentPetId') || 'roger';
     });
 
-    const currentPet = pets[currentPetId];
+    // Make pets stateful to allow updates
+    const [allPets, setAllPets] = useState(pets);
+
+    const currentPet = allPets[currentPetId];
 
     const switchPet = (petId) => {
-        if (pets[petId]) {
+        if (allPets[petId]) {
             setCurrentPetId(petId);
             localStorage.setItem('currentPetId', petId);
-            console.log(`Switched to ${pets[petId].profile.name}`);
+            console.log(`Switched to ${allPets[petId].profile.name}`);
         }
     };
 
+    const addMedicalHistory = (newRecords) => {
+        setAllPets(prev => ({
+            ...prev,
+            [currentPetId]: {
+                ...prev[currentPetId],
+                medicalHistory: [
+                    ...newRecords,
+                    ...prev[currentPetId].medicalHistory
+                ]
+            }
+        }));
+    };
+
     return (
-        <PetContext.Provider value={{ currentPet, switchPet, allPets: pets }}>
+        <PetContext.Provider value={{ currentPet, switchPet, allPets, addMedicalHistory }}>
             {children}
         </PetContext.Provider>
     );

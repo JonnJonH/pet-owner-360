@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { usePet } from '../../context/PetContext';
-import { PartyPopper, Dna, ArrowUpRight } from 'lucide-react';
+import { PartyPopper, Dna, ArrowUpRight, CheckCircle } from 'lucide-react';
 
 const PetOwner360 = () => {
     const { currentPet } = usePet();
     const isAquatic = currentPet.biometrics.environment === 'Aquatic';
+    const [joinedBiobank, setJoinedBiobank] = useState(false);
 
     return (
-        <div className="bg-gradient-to-br from-indigo-900 to-purple-900 rounded-xl shadow-lg p-6 text-white overflow-hidden relative">
+        <div className="bg-gradient-to-br from-indigo-900 to-purple-900 rounded-xl shadow-lg p-6 text-white overflow-hidden relative flex flex-col">
             <div className="absolute top-0 right-0 -mr-8 -mt-8 w-32 h-32 bg-white/10 rounded-full blur-xl"></div>
 
             <h2 className="text-lg font-extrabold mb-4 flex items-center relative z-10">
@@ -34,16 +35,29 @@ const PetOwner360 = () => {
                     </div>
                 </div>
 
-                <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/10 cursor-pointer hover:bg-white/20 transition-colors">
+                <button
+                    onClick={() => setJoinedBiobank(true)}
+                    disabled={joinedBiobank}
+                    className={`bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/10 text-left transition-all relative overflow-hidden group
+                        ${joinedBiobank ? 'cursor-default border-green-400/30' : 'hover:bg-white/20 cursor-pointer'}
+                    `}
+                >
+                    {joinedBiobank && (
+                        <div className="absolute inset-0 bg-green-500/10 flex items-center justify-center backdrop-blur-[1px] z-20">
+                            <span className="font-bold text-white flex items-center shadow-sm">
+                                <CheckCircle className="w-5 h-5 mr-2 text-green-400" /> Joined!
+                            </span>
+                        </div>
+                    )}
                     <div className="flex justify-between items-start">
-                        <Dna className="text-pink-300 w-6 h-6 mb-2" />
-                        <ArrowUpRight className="text-indigo-300 w-4 h-4" />
+                        <Dna className={`w-6 h-6 mb-2 ${joinedBiobank ? 'text-green-300' : 'text-pink-300'}`} />
+                        {!joinedBiobank && <ArrowUpRight className="text-indigo-300 w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />}
                     </div>
                     <h3 className="font-bold text-sm mb-1">Mars Biobank™</h3>
                     <p className="text-xs text-indigo-100 leading-snug">
-                        {currentPet.profile.name}'s data is valuable! Donate genomic data to help future {currentPet.profile.species.split(' ')[0]} treatments?
+                        {currentPet.profile.name}'s data is valuable! Donate genomic data?
                     </p>
-                </div>
+                </button>
             </div>
         </div>
     );
